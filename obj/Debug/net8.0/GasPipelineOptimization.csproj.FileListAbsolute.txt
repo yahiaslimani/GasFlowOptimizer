@@ -26,3 +26,14 @@
 /home/runner/workspace/obj/Debug/net8.0/GasPipelineOptimization.genruntimeconfig.cache
 /home/runner/workspace/obj/Debug/net8.0/ref/GasPipelineOptimization.dll
 /home/runner/workspace/obj/Debug/net8.0/GasPipelineOptimization.sourcelink.json
+/home/runner/workspace/obj/Debug/net8.0/GasPipelineOptimization.MvcApplicationPartsAssemblyInfo.cache
+/home/runner/workspace/bin/Debug/net8.0/config.json
+/home/runner/workspace/bin/Debug/net8.0/GasPipelineOptimization.staticwebassets.runtime.json
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets.build.json
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets.development.json
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets/msbuild.GasPipelineOptimization.Microsoft.AspNetCore.StaticWebAssets.props
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets/msbuild.build.GasPipelineOptimization.props
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.GasPipelineOptimization.props
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.GasPipelineOptimization.props
+/home/runner/workspace/obj/Debug/net8.0/staticwebassets.pack.json
+/home/runner/workspace/obj/Debug/net8.0/scopedcss/bundle/GasPipelineOptimization.styles.css

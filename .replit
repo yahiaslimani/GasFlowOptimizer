@@ -17,18 +17,23 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "workflow.run"
-args = "Gas Pipeline Optimization"
+args = "Gas Pipeline Web App"
 
 [[workflows.workflow]]
-name = "Gas Pipeline Optimization"
+name = "Gas Pipeline Web App"
 author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "dotnet restore && dotnet run"
+args = "ASPNETCORE_URLS=http://0.0.0.0:5000 dotnet run"
+waitForPort = 5000
 
 [workflows.workflow.metadata]
-outputType = "console"
+outputType = "webview"
 
 [deployment]
 run = ["sh", "-c", "dotnet run"]
+
+[[ports]]
+localPort = 5000
+externalPort = 80

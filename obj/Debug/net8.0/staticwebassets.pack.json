@@ -1,0 +1,41 @@
+{
+  "Files": [
+    {
+      "Id": "/home/runner/workspace/wwwroot/css/styles.css",
+      "PackagePath": "staticwebassets/css/styles.css"
+    },
+    {
+      "Id": "/home/runner/workspace/wwwroot/index.html",
+      "PackagePath": "staticwebassets/index.html"
+    },
+    {
+      "Id": "/home/runner/workspace/wwwroot/js/app.js",
+      "PackagePath": "staticwebassets/js/app.js"
+    },
+    {
+      "Id": "/home/runner/workspace/wwwroot/js/network-diagram.js",
+      "PackagePath": "staticwebassets/js/network-diagram.js"
+    },
+    {
+      "Id": "/home/runner/workspace/wwwroot/js/optimization.js",
+      "PackagePath": "staticwebassets/js/optimization.js"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.GasPipelineOptimization.Microsoft.AspNetCore.StaticWebAssets.props",
+      "PackagePath": "build\\Microsoft.AspNetCore.StaticWebAssets.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.build.GasPipelineOptimization.props",
+      "PackagePath": "build\\GasPipelineOptimization.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildMultiTargeting.GasPipelineOptimization.props",
+      "PackagePath": "buildMultiTargeting\\GasPipelineOptimization.props"
+    },
+    {
+      "Id": "obj/Debug/net8.0/staticwebassets/msbuild.buildTransitive.GasPipelineOptimization.props",
+      "PackagePath": "buildTransitive\\GasPipelineOptimization.props"
+    }
+  ],
+  "ElementsToRemove": []
+}
