@@ -552,17 +552,20 @@ class NetworkDiagram {
             });
         }
 
-        // Show infeasible elements
-        if (result.status !== 'Optimal' && result.status !== 'Feasible') {
-            document.querySelectorAll('.point, .segment').forEach(el => {
-                el.classList.add('infeasible');
+        // Highlight specific infeasible segments if provided in result
+        if (result.infeasibleSegments && result.infeasibleSegments.length > 0) {
+            result.infeasibleSegments.forEach(segmentId => {
+                const segmentElement = document.querySelector(`[data-id="${segmentId}"]`);
+                if (segmentElement) {
+                    segmentElement.classList.add('infeasible');
+                }
             });
         }
     }
 
     clearOptimizationResults() {
-        document.querySelectorAll('.optimized, .infeasible').forEach(el => {
-            el.classList.remove('optimized', 'infeasible');
+        document.querySelectorAll('.optimized, .infeasible, .optimization-failed').forEach(el => {
+            el.classList.remove('optimized', 'infeasible', 'optimization-failed');
         });
         
         document.querySelectorAll('.flow-label, .pressure-label').forEach(el => {

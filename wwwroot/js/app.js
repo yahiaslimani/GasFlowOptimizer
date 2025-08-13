@@ -462,10 +462,33 @@ class PipelineApp {
         // Clear previous optimization results
         if (window.networkDiagram) {
             window.networkDiagram.clearOptimizationResults();
-            // Add visual indication of failure
-            document.querySelectorAll('.point, .segment').forEach(el => {
-                el.classList.add('optimization-failed');
-            });
+            
+            // Only highlight specific infeasible segments if available in optimization result
+            if (this.optimizationResult.infeasibleSegments && this.optimizationResult.infeasibleSegments.length > 0) {
+                this.optimizationResult.infeasibleSegments.forEach(segmentId => {
+                    const segmentElement = document.querySelector(`[data-id="${segmentId}"]`);
+                    if (segmentElement) {
+                        segmentElement.classList.add('infeasible');
+                    }
+                });
+            } else if (this.optimizationResult.validationErrors && this.optimizationResult.validationErrors.length > 0) {
+                // Extract segment IDs from validation error messages and highlight them
+                this.optimizationResult.validationErrors.forEach(error => {
+                    const segmentMatch = error.match(/segment\s+(\w+)/i);
+                    if (segmentMatch) {
+                        const segmentId = segmentMatch[1];
+                        const segmentElement = document.querySelector(`[data-id="${segmentId}"]`);
+                        if (segmentElement) {
+                            segmentElement.classList.add('infeasible');
+                        }
+                    }
+                });
+            } else {
+                // Generic failure - highlight all segments with reduced opacity
+                document.querySelectorAll('.segment').forEach(el => {
+                    el.classList.add('optimization-failed');
+                });
+            }
         }
     }
 
