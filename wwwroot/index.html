@@ -35,23 +35,23 @@
                 
                 <!-- Toolbar -->
                 <div class="toolbar">
-                    <button id="selectTool" class="tool-btn active" data-tool="select">
+                    <button id="selectTool" class="btn btn-secondary active" onclick="window.app.setTool('select')">
                         <i class="fas fa-mouse-pointer"></i> Select
                     </button>
-                    <button id="addReceiptTool" class="tool-btn" data-tool="receipt">
+                    <button id="addReceiptTool" class="btn btn-secondary" onclick="window.app.setTool('receipt')">
                         <i class="fas fa-arrow-right"></i> Add Receipt
                     </button>
-                    <button id="addDeliveryTool" class="tool-btn" data-tool="delivery">
+                    <button id="addDeliveryTool" class="btn btn-secondary" onclick="window.app.setTool('delivery')">
                         <i class="fas fa-arrow-left"></i> Add Delivery
                     </button>
-                    <button id="addCompressorTool" class="tool-btn" data-tool="compressor">
+                    <button id="addCompressorTool" class="btn btn-secondary" onclick="window.app.setTool('compressor')">
                         <i class="fas fa-cog"></i> Add Compressor
                     </button>
-                    <button id="addConnectionTool" class="tool-btn" data-tool="connection">
-                        <i class="fas fa-link"></i> Add Connection
-                    </button>
-                    <button id="connectPointsTool" class="tool-btn" data-tool="connect">
+                    <button id="connectPointsTool" class="btn btn-secondary" onclick="window.app.setTool('connect')">
                         <i class="fas fa-bezier-curve"></i> Connect Points
+                    </button>
+                    <button id="deleteElementTool" class="btn btn-danger" onclick="window.app.deleteSelectedElement()">
+                        <i class="fas fa-trash"></i> Delete
                     </button>
                 </div>
 

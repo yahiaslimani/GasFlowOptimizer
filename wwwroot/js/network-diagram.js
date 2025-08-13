@@ -153,16 +153,26 @@ class NetworkDiagram {
     }
 
     handleCanvasClick(e) {
-        if (e.target === this.svg || e.target.closest('.point, .segment')) return;
+        // Don't handle clicks on points or segments, they have their own handlers
+        if (e.target.closest('.point, .segment')) return;
 
         const rect = this.svg.getBoundingClientRect();
         const x = e.clientX - rect.left;
         const y = e.clientY - rect.top;
 
-        if (window.app.currentTool !== 'select') {
+        if (window.app.currentTool === 'receipt' || window.app.currentTool === 'delivery' || window.app.currentTool === 'compressor') {
             this.createElementAtPosition(x, y);
+        } else if (window.app.currentTool === 'connect') {
+            // Cancel connection mode if clicking on empty space
+            if (this.connectingFrom) {
+                this.highlightPoint(this.connectingFrom.id, false);
+                this.connectingFrom = null;
+                window.app.updateStatus('Connection cancelled');
+            }
         } else {
+            // Always clear selection when clicking on blank space in select mode
             this.clearSelection();
+            window.app.updateStatus('Selection cleared');
         }
     }
 
@@ -229,7 +239,13 @@ class NetworkDiagram {
             this.createConnection(this.connectingFrom, point);
             this.highlightPoint(this.connectingFrom.id, false);
             this.connectingFrom = null;
-            window.app.updateStatus(`Connection created`);
+            window.app.updateStatus(`Connection created between ${this.connectingFrom.id} and ${point.id}`);
+            window.app.setTool('select'); // Return to select mode after connection
+        } else {
+            // Clicking same point cancels connection
+            this.highlightPoint(this.connectingFrom.id, false);
+            this.connectingFrom = null;
+            window.app.updateStatus('Connection cancelled');
         }
     }
 
@@ -283,12 +299,20 @@ class NetworkDiagram {
             el.classList.remove('selected');
         });
         this.selectedElement = null;
-        window.app.selectedElement = null;
+        if (window.app) {
+            window.app.selectedElement = null;
+        }
         
         // Clear connection mode
         if (this.connectingFrom) {
             this.highlightPoint(this.connectingFrom.id, false);
             this.connectingFrom = null;
+        }
+        
+        // Clear properties panel
+        const container = document.getElementById('propertiesContent');
+        if (container) {
+            container.innerHTML = '<p>Select a point or segment to view properties</p>';
         }
     }
 

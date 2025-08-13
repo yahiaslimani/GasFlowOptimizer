@@ -120,6 +120,21 @@ body {
     justify-content: center;
 }
 
+.btn.active {
+    background: #27ae60 !important;
+    color: white !important;
+    box-shadow: 0 2px 8px rgba(39, 174, 96, 0.3);
+}
+
+.btn-danger {
+    background: #e74c3c;
+    color: white;
+}
+
+.btn-danger:hover {
+    background: #c0392b;
+}
+
 .button-group {
     display: flex;
     gap: 10px;
@@ -580,6 +595,33 @@ body {
     background-color: #d1ecf1;
     color: #0c5460;
     border: 1px solid #bee5eb;
+}
+
+/* Connection highlighting */
+.connecting {
+    stroke: #f39c12 !important;
+    stroke-width: 4px !important;
+    filter: drop-shadow(0 0 6px #f39c12);
+}
+
+/* Selected element highlighting */
+.selected {
+    stroke: #e74c3c !important;
+    stroke-width: 3px !important;
+    filter: drop-shadow(0 0 4px #e74c3c);
+}
+
+/* Tool button styling fixes */
+.toolbar {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 10px;
+    flex-wrap: wrap;
+}
+
+.toolbar .btn {
+    font-size: 0.85rem;
+    padding: 6px 12px;
 }
     font-size: 10px;
     font-weight: bold;

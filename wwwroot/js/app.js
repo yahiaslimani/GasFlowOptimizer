@@ -546,8 +546,29 @@ class PipelineApp {
     deleteSelectedElement() {
         if (!this.selectedElement) return;
 
+        const confirmed = confirm(`Are you sure you want to delete ${this.selectedElement.type} ${this.selectedElement.id}?`);
+        if (!confirmed) return;
+
         if (this.selectedElement.type === 'point') {
+            // Remove the point
             delete this.network.points[this.selectedElement.id];
+            
+            // Remove all segments connected to this point
+            Object.keys(this.network.segments).forEach(segmentId => {
+                const segment = this.network.segments[segmentId];
+                if (segment.fromPointId === this.selectedElement.id || segment.toPointId === this.selectedElement.id) {
+                    delete this.network.segments[segmentId];
+                }
+            });
+        } else if (this.selectedElement.type === 'segment') {
+            delete this.network.segments[this.selectedElement.id];
+        }
+
+        this.selectedElement = null;
+        this.renderNetwork();
+        this.updateNetworkStats();
+        this.updateStatus('Element deleted');
+    }
             // Also delete connected segments
             Object.keys(this.network.segments).forEach(segmentId => {
                 const segment = this.network.segments[segmentId];
@@ -563,6 +584,30 @@ class PipelineApp {
         this.renderNetwork();
         this.updateNetworkStats();
         this.updateStatus('Element deleted');
+    }
+
+    setTool(tool) {
+        this.currentTool = tool;
+        
+        // Update button states
+        document.querySelectorAll('.toolbar .btn').forEach(btn => {
+            btn.classList.remove('active');
+        });
+        
+        if (tool !== 'select') {
+            const activeBtn = document.querySelector(`[onclick*="${tool}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+            }
+        }
+        
+        // Clear any ongoing connection
+        if (window.networkDiagram && window.networkDiagram.connectingFrom) {
+            window.networkDiagram.highlightPoint(window.networkDiagram.connectingFrom.id, false);
+            window.networkDiagram.connectingFrom = null;
+        }
+        
+        this.updateStatus(`Tool: ${tool.charAt(0).toUpperCase() + tool.slice(1)}`);
     }
 
     updateStatus(message, type = 'info') {
