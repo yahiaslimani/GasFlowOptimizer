@@ -569,22 +569,6 @@ class PipelineApp {
         this.updateNetworkStats();
         this.updateStatus('Element deleted');
     }
-            // Also delete connected segments
-            Object.keys(this.network.segments).forEach(segmentId => {
-                const segment = this.network.segments[segmentId];
-                if (segment.fromPointId === this.selectedElement.id || segment.toPointId === this.selectedElement.id) {
-                    delete this.network.segments[segmentId];
-                }
-            });
-        } else if (this.selectedElement.type === 'segment') {
-            delete this.network.segments[this.selectedElement.id];
-        }
-
-        this.selectedElement = null;
-        this.renderNetwork();
-        this.updateNetworkStats();
-        this.updateStatus('Element deleted');
-    }
 
     setTool(tool) {
         this.currentTool = tool;
@@ -599,6 +583,8 @@ class PipelineApp {
             if (activeBtn) {
                 activeBtn.classList.add('active');
             }
+        } else {
+            document.getElementById('selectTool').classList.add('active');
         }
         
         // Clear any ongoing connection
