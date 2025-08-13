@@ -78,7 +78,18 @@ class OptimizationManager {
 
         } catch (error) {
             console.error('Optimization error:', error);
-            throw error;
+            // Create a failed result object
+            this.currentResult = {
+                status: 'Failed',
+                messages: [error.message],
+                segmentFlows: {},
+                pointPressures: {},
+                totalCost: { totalCost: 0 },
+                metrics: { totalThroughput: 0, solutionTimeMs: 0, averageCapacityUtilization: 0 },
+                isValid: false,
+                validationErrors: [error.message]
+            };
+            return this.currentResult;
         } finally {
             this.isRunning = false;
         }

@@ -384,9 +384,20 @@ class PipelineApp {
             
             resultsDiv.style.display = 'block';
         } else {
-            statusDiv.textContent = `Optimization failed: ${this.optimizationResult.status}`;
+            let errorMessage = `Optimization ${this.optimizationResult.status}`;
+            if (this.optimizationResult.messages && this.optimizationResult.messages.length > 0) {
+                errorMessage += `: ${this.optimizationResult.messages.join(', ')}`;
+            }
+            if (this.optimizationResult.validationErrors && this.optimizationResult.validationErrors.length > 0) {
+                errorMessage += `. Validation errors: ${this.optimizationResult.validationErrors.join(', ')}`;
+            }
+            
+            statusDiv.textContent = errorMessage;
             statusDiv.className = 'status-message error';
             resultsDiv.style.display = 'none';
+            
+            // Highlight problematic elements in the diagram
+            this.highlightProblematicElements();
         }
     }
 
@@ -444,6 +455,17 @@ class PipelineApp {
     renderOptimizationResults() {
         if (window.networkDiagram) {
             window.networkDiagram.showOptimizationResults(this.optimizationResult);
+        }
+    }
+
+    highlightProblematicElements() {
+        // Clear previous optimization results
+        if (window.networkDiagram) {
+            window.networkDiagram.clearOptimizationResults();
+            // Add visual indication of failure
+            document.querySelectorAll('.point, .segment').forEach(el => {
+                el.classList.add('optimization-failed');
+            });
         }
     }
 

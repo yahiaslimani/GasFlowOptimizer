@@ -410,16 +410,28 @@ class NetworkDiagram {
             point.y = Math.max(20, Math.min(y, this.svg.clientHeight - 20));
             
             // Update point element
-            const pointElement = document.querySelector(`[data-id="${pointId}"] circle`);
-            const labelElement = document.querySelector(`[data-id="${pointId}"] .point-label`);
-            
-            if (pointElement) {
-                pointElement.setAttribute('cx', point.x);
-                pointElement.setAttribute('cy', point.y);
-            }
-            if (labelElement) {
-                labelElement.setAttribute('x', point.x);
-                labelElement.setAttribute('y', point.y + this.getPointRadius(point.type) + 15);
+            const pointGroup = document.querySelector(`[data-id="${pointId}"]`);
+            if (pointGroup) {
+                const circle = pointGroup.querySelector('circle');
+                const texts = pointGroup.querySelectorAll('text');
+                
+                if (circle) {
+                    circle.setAttribute('cx', point.x);
+                    circle.setAttribute('cy', point.y);
+                }
+                
+                // Update all text elements to move with the point
+                texts.forEach((text, index) => {
+                    text.setAttribute('x', point.x);
+                    if (text.classList.contains('point-label')) {
+                        text.setAttribute('y', point.y + this.getPointRadius(point.type) + 15);
+                    } else if (text.classList.contains('pressure-label')) {
+                        text.setAttribute('y', point.y + this.getPointRadius(point.type) + 45);
+                    } else {
+                        // Additional info text
+                        text.setAttribute('y', point.y + this.getPointRadius(point.type) + 30);
+                    }
+                });
             }
 
             // Update connected segments
